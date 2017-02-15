@@ -1,0 +1,13 @@
+En el siguiente documento se describe la transformada de Hotelling. 
+Como ejemplo se aplica sobre este conjunto de imágenes
+
+En este ejercicio se pide al alumno que desarrolle el fichero thotelling.m
+ para aplicar la transformada a un conjunto de imágenes satélite de la
+ ciudad de Adra. Establecer el error cometido cuando se usa:
+
+Solamente la primera imagen correspondiente al primer autovalor
+Solamente las dos primeras imágenes correspondientes al prime
+...
+Todos las imágenes.
+Mostrar una gráfica que muestre el error cometido cuando se usan las
+ diferentes imágenes obtenidas.
