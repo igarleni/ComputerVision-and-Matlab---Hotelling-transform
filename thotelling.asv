@@ -1,26 +1,19 @@
-%Read images
-selection = 1;
-
-if (selection == 1)
-    for n = 1:6
-        path = strcat('adra/banda', int2str(n), '.tif');
-        adraImg = imread(path);
-        adraImg = im2double(adraImg);
-        adraImages(:,:,n) = adraImg;
-    end
-else
-    index = 1;
-    for n = 'a':'e'
-        path = strcat('camiones/', n, '.jpg');
-        adraImg = imread(path);
-        adraImg = rgb2gray(adraImg);
-        adraImg = im2double(adraImg);
-        adraImages(:,:,index) = adraImg;
-        index = index + 1;
-    end
+%Read adra images
+for n = 1:6
+    path = strcat('adra/banda', int2str(n), '.tif');
+    adraImg = imread(path);
+    adraImg = im2double(adraImg);
+    adraImages(:,:,n) = adraImg;
 end
 sizeVector = size(adraImages);
 
+for n = 'a':'e'
+    path = strcat('camiones/', n, '.jpg');
+    adraImg = imread(path);
+    adraImg = rgb2gray(adraImg);
+    adraImages(:,:,n) = adraImg;
+end
+sizeVector = size(adraImages);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Applu Hotelling transform
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,3 +59,7 @@ for n = 1:sizeVector(3)
     end
 end
 
+figure
+for i = 1:sizeVector(3)
+    subplot(sizeVector(3)/2,sizeVector(3)/2,i),imshow(newAdraImages(:,:,i));
+end
