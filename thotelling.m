@@ -34,8 +34,8 @@ for i = 1:sizeVector(1)
         mean = mean + vector;
     end
 end
-mean = mean / sizeVector(3);
-expectationMean = (mean') * mean;
+mean = mean / (sizeVector(1) * sizeVector(2));
+expectationMean = ((mean') * mean) / (sizeVector(1) * sizeVector(2));
 
 %Expectation of pixel vectors
 expectation = zeros(sizeVector(3),sizeVector(3), 'double');
@@ -56,7 +56,7 @@ covMatrix = expectation - expectationMean;
 
 %Order eigenVectors by eigenValues
 eigenVectors = fliplr(eigenVectors);
-eigenValues = flipud(fliplr(eigenVectors));
+eigenValues = flipud(fliplr(eigenValues));
 
 %Apply Hotelling on pixel vectors y = A(x-m)
 newAdraImages = adraImages;
@@ -71,9 +71,9 @@ for n = 1:sizeVector(3)
 end
 
 figure, subplot(2,3,1), imshow(newAdraImages(:,:,1)),...
-    subplot(2,3,2), imshow(newAdraImages(:,:,2)),...
-    subplot(2,3,3), imshow(newAdraImages(:,:,3)),...
-    subplot(2,3,4), imshow(newAdraImages(:,:,4)),...
-    subplot(2,3,5), imshow(newAdraImages(:,:,5)),...
-    subplot(2,3,6), imshow(newAdraImages(:,:,6));
+    subplot(2,3,2), imshow(newAdraImages(:,:,2), []),...
+    subplot(2,3,3), imshow(newAdraImages(:,:,3), []),...
+    subplot(2,3,4), imshow(newAdraImages(:,:,4), []),...
+    subplot(2,3,5), imshow(newAdraImages(:,:,5), []),...
+    subplot(2,3,6), imshow(newAdraImages(:,:,6), []);
     
