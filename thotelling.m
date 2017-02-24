@@ -43,31 +43,20 @@ for i = 1:sizeVector(1)
     for j = 1:sizeVector(2)
         vector = adraImages(i,j,:);
         vector = squeeze(vector(1,1,:)).';
-        expectation = vector' * vector;
+        expectation = expectation + vector' * vector;
     end
 end
 expectation = expectation / (sizeVector(1) * sizeVector(2));
 
 %Covariance matrix
-covMatrix = expectationMean - expectation;
+covMatrix = expectation - expectationMean;
 
 %Get Eigenvalues and Eigenvectors
 [eigenVectors, eigenValues] = eig(covMatrix);
 
 %Order eigenVectors by eigenValues
-for i = 1:(sizeVector(3)-1)
-    for j = (i+1):sizeVector(3)
-        if (eigenValues(i,i) > eigenValues(j,j)) 
-            aux1 = eigenValues(i,i);
-            eigenValues(i,i) = eigenValues(j,j);
-            eigenValues(j,j) = aux1;
-            
-            aux2 = eigenVectors(i,:);
-            eigenVectors(i,:) = eigenVectors(j,:);
-            eigenVectors(j,:) = aux2;
-        end
-    end
-end
+eigenVectors = fliplr(eigenVectors);
+eigenValues = flipud(fliplr(eigenVectors));
 
 %Apply Hotelling on pixel vectors y = A(x-m)
 newAdraImages = adraImages;
@@ -76,7 +65,7 @@ for n = 1:sizeVector(3)
         for j = 1:sizeVector(2)
             vector = adraImages(i,j,:);
             vector = squeeze(vector(1,1,:)).';
-            newAdraImages(i,j,:) = 0.30 + (vector - mean) * eigenVectors;
+            newAdraImages(i,j,:) = (vector - mean) * eigenVectors;
         end
     end
 end
